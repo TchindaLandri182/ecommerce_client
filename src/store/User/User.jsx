@@ -4,8 +4,6 @@ import { toast } from 'react-toastify';
 import status from '../../constant/status';
 
 
-
-// const apiUrl = `${process.env.API_URL_PATH}/api/auth`;
 const apiUrl = 'http://localhost:4000/api/auth';
 
 export const activateEmail = createAsyncThunk('user/activate', async ({token, emailToken, formData}) => {

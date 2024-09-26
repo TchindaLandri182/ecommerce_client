@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect } from "react";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from 'yup';
@@ -20,7 +20,7 @@ const VerifyEmail = () => {
 
     useEffect(() => {
         console.log(id)
-    }, [])
+    }, [id])
 
     const handleSubmit = async (values, {setSubmitting}) => {
         toast.dismiss()

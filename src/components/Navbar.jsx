@@ -32,7 +32,6 @@ const Navbar = () => {
                 <a href="#about" className="hover:text-gray-400 flex gap-3 items-center">
                     <FaTag color={localStorage.color} /> Products
                 </a>
-                {/*<a href="#projects" className="hover:text-gray-400">My Projects</a>*/}
                 <a href="#contact" className="hover:text-gray-400 flex gap-3 items-center">
                     <FaEnvelope color={localStorage.color} /> Contact Me
                 </a>

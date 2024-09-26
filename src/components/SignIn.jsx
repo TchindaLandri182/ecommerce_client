@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaEnvelope, FaEye, FaEyeSlash, FaFacebook, FaFacebookF, FaGoogle } from "react-icons/fa";
+import { FaEnvelope, FaEye, FaEyeSlash, FaFacebookF, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -19,7 +19,6 @@ const SignIn = () => {
 
     const apiUrl = 'http://localhost:4000/api/auth';
     const navigate = useNavigate()
-    //const dispatch = useDispatch()
     const [viewPassword, setViewPassword] = useState(false)
 
     const handleSubmit = async (values, {setSubmitting}) => {
