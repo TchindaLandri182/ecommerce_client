@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
 
 const SignIn = () => {
 
-    const apiUrl = 'http://localhost:4000/api/auth';
+    const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/auth';
     const navigate = useNavigate()
     const [viewPassword, setViewPassword] = useState(false)
 
@@ -40,7 +40,8 @@ const SignIn = () => {
             navigate('/auth/verify')
         }catch(error){
             toast.dismiss()
-            toast.error(error.response.data.message)
+            if(error.response.data.message) toast.error(error.response.data.message)
+            else toast.error(error.message)
         }
         setSubmitting(false)
     }

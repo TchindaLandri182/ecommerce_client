@@ -14,7 +14,7 @@ const validationSchema = Yup.object().shape({
 
 const VerifyEmail = () => {
 
-    const apiUrl = 'http://localhost:4000/api/auth';
+    const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/auth';
     const navigate = useNavigate()
     const {id} = useParams()
 

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import status from '../../constant/status';
 
 
-const apiUrl = 'http://localhost:4000/api/auth';
+const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/auth';
 
 export const activateEmail = createAsyncThunk('user/activate', async ({token, emailToken, formData}) => {
   try{
