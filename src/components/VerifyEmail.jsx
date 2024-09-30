@@ -5,6 +5,7 @@ import { FaLock } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from 'yup';
+import signupstep from "../constant/signupstep";
 
 const validationSchema = Yup.object().shape({
   verificationCode: Yup.string()
@@ -14,13 +15,37 @@ const validationSchema = Yup.object().shape({
 
 const VerifyEmail = () => {
 
-    const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/auth';
+    const apiUrl = 'http://localhost:4000/api/auth';
     const navigate = useNavigate()
-    const {id} = useParams()
+    const {id:token} = useParams()
 
     useEffect(() => {
-        console.log(id)
-    }, [id])
+        const verifyEmailToken = async () => {
+            if(token) {
+                toast.loading("Verifying Email")
+                const response = await axios.post(apiUrl+'/verifyemailtoken', {token})
+
+                sessionStorage.createdAt = response.data.createdAt
+                sessionStorage.email = response.data.email
+                sessionStorage.profileImage = response.data.profileImage
+                sessionStorage.role = response.data.role
+                sessionStorage.token = response.data.token
+                sessionStorage.userName = response.data.userName
+                sessionStorage.signupstep = response.data.signupstep
+                sessionStorage.updatedAt = response.data.updatedAt
+                sessionStorage.description = response.data.description
+
+
+                toast.dismiss()
+                toast.success(response.data.message)
+
+                if(response.data.signupstep === signupstep.idle) navigate('/')
+                else navigate(`/auth/${response.data.signupstep}`)
+            } 
+        }
+        verifyEmailToken()
+        
+    }, [token])
 
     const handleSubmit = async (values, {setSubmitting}) => {
         toast.dismiss()
@@ -30,9 +55,9 @@ const VerifyEmail = () => {
                 headers: {
                     "authorization": `Bearer ${sessionStorage.token}`
                 }
-            });
+            }); 
             
-            sessionStorage.isEmailVerified = true
+            sessionStorage.signupstep = response.data.signupstep
             
             toast.dismiss()
             toast.success(response.data.message)

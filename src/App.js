@@ -5,24 +5,28 @@ import { Auth, Home } from './pages';
 import { Footer, Navbar } from './components';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import signupstep from './constant/signupstep'
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
 
   const navigate = useNavigate()
+  // const token = sessionStorage.token
+  const authstep = sessionStorage.signupstep
 
   useEffect(() => {
-    const verifyAuth = () => {
-      console.log(sessionStorage.token, sessionStorage.isEmailVerified)
-      if(sessionStorage.token && !sessionStorage.isEmailVerified) navigate('/auth/verify')
-      
-    }
+    if(authstep !== signupstep.idle && authstep) navigate(`auth/${authstep}`)
+  }, [authstep, navigate])
+
+  useEffect(() => {
+    
     const setGlobalTheme = () => {
       if(!localStorage?.color) localStorage.setItem('color', '#7fec7f')
       if(localStorage?.fontSize) localStorage.setItem('fontSize', 0.5)
     }
     setGlobalTheme()
-    verifyAuth()
-  }, [navigate])
+  }, [])
   return (
     
     <div style={{fontSize: ((2*(Number.parseFloat(localStorage.fontSize) + 0.1))+'rem')}} className="App dark:bg-gray-900 dark:text-white bg-white text-black">

@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import {SignIn, SignUp, VerifyEmail} from "../components";
+import {SignIn, SignUp, VerifyEmail, CompleteSignUp} from "../components";
 import { AuthLayout } from "../layout";
 
 const Auth = () => {
@@ -11,6 +11,7 @@ const Auth = () => {
                 <Route path="/signup" Component={SignUp} />
                 <Route path="/verify/:id" Component={VerifyEmail} />
                 <Route path="/verify" Component={VerifyEmail} />
+                <Route path="/complete" Component={CompleteSignUp} />
             </Routes>
         </AuthLayout>
     )

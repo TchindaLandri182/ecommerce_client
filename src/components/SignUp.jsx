@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { FaEnvelope, FaEye, FaEyeSlash, FaFacebookF, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { auth, facebookProvider, googleProvider } from "../firebase";
 import * as Yup from 'yup';
 import { toast } from "react-toastify";
 import axios from "axios";
+import { signInWithPopup } from "firebase/auth";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -24,11 +26,73 @@ const validationSchema = Yup.object().shape({
 
 const SignUp = () => {
 
-    const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/auth';
+    // const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/auth';
+    const apiUrl = 'http://localhost:4000/api/auth';
     const navigate = useNavigate()
-
     const [viewPassword, setViewPassword] = useState(false)
 
+    const signUpWithGoogle = async () => {
+    
+        try {
+            
+            const result = await signInWithPopup(auth, googleProvider)
+            const token = await result.user.getIdToken(); 
+            
+            
+            const response = await axios.post(apiUrl+'/googlesignup', {}, {
+                headers: {
+                    "authorization": `Bearer ${token}`
+                }
+            });
+            
+            sessionStorage.createdAt = response.data.createdAt
+            sessionStorage.email = response.data.email
+            sessionStorage.profileImage = response.data.profileImage
+            sessionStorage.role = response.data.role
+            sessionStorage.token = response.data.token
+            sessionStorage.userName = response.data.userName
+            sessionStorage.signupstep = response.data.signupstep
+            
+            toast.dismiss()
+            toast.success(response.data.message)
+            navigate(`/auth/${response.data.signupstep}`)
+        } catch (error) {
+            toast.dismiss()
+            if(error.response.data.message) toast.error(error.response.data.message)
+            else toast.error(error.message)
+        }
+    };
+
+    const signUpWithFacebook = async () => {
+        
+        try {
+            
+            const result = await signInWithPopup(auth, facebookProvider)
+            const token = await result.user.getIdToken(); 
+
+            const response = await axios.post(apiUrl+'/facebooksignup', {}, {
+                headers: {
+                    "authorization": `Bearer ${token}`
+                }
+            });
+            
+            sessionStorage.createdAt = response.data.createdAt
+            sessionStorage.email = response.data.email
+            sessionStorage.profileImage = response.data.profileImage
+            sessionStorage.role = response.data.role
+            sessionStorage.token = response.data.token
+            sessionStorage.userName = response.data.userName
+            sessionStorage.signupstep = response.data.signupstep
+            
+            toast.dismiss()
+            toast.success(response.data.message)
+            navigate(`/auth/${response.data.signupstep}`)
+        } catch (error) {
+            toast.dismiss()
+            if(error.response.data.message) toast.error(error.response.data.message)
+            else toast.error(error.message)
+        }
+    };
 
     const handleSubmit = async (values, {setSubmitting}) => {
         toast.dismiss()
@@ -42,14 +106,15 @@ const SignUp = () => {
             sessionStorage.role = response.data.role
             sessionStorage.token = response.data.token
             sessionStorage.userName = response.data.userName
-            sessionStorage.isEmailVerified = false
+            sessionStorage.signupstep = response.data.signupstep
             
             toast.dismiss()
             toast.success(response.data.message)
-            navigate('/auth/verify')
+            navigate(`/auth/${response.data.signupstep}`)
         }catch(error){
             toast.dismiss()
-            toast.error(error.response.data.message)
+            if(error.response.data.message) toast.error(error.response.data.message)
+            else toast.error(error.message)
         }
         setSubmitting(false)
     }
@@ -145,10 +210,10 @@ const SignUp = () => {
                 <hr className="flex-1" />
             </div>
             <div className="flex gap-7 items-center justify-center">
-                <div className="border-2 border-gray-500 h-[50px] w-[50px] rounded-full flex items-center justify-center">
+                <div className="border-2 border-gray-500 h-[50px] w-[50px] rounded-full flex items-center justify-center" onClick={() => signUpWithGoogle()}>
                     <FaGoogle className="text-center" />
                 </div>
-                <div className=" bg-blue-600 h-[50px] w-[50px] rounded-full flex items-center justify-center">
+                <div className=" bg-blue-600 h-[50px] w-[50px] rounded-full flex items-center justify-center" onClick={() => signUpWithFacebook()}>
                     <FaFacebookF className="text-center text-white" />
                 </div>
             </div>

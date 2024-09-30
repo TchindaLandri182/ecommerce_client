@@ -4,6 +4,7 @@ import HeroSection from "./HeroSection";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import VerifyEmail from "./VerifyEmail";
+import CompleteSignUp from "./CompleteSignUp";
 
 export  {
     Navbar, 
@@ -11,5 +12,6 @@ export  {
     HeroSection, 
     SignIn, 
     SignUp,
-    VerifyEmail
+    VerifyEmail,
+    CompleteSignUp
 }
