@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEnvelope, FaEye, FaEyeSlash, FaFacebookF, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -20,11 +20,17 @@ const validationSchema = Yup.object().shape({
 
 const SignIn = () => {
 
+    
+
     // const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/auth';
     const apiUrl = 'http://localhost:4000/api/auth';
-
     const navigate = useNavigate()
     const [viewPassword, setViewPassword] = useState(false)
+    const signupstep2 = sessionStorage.signupstep
+
+    useEffect(() => {
+
+    },[])
 
     const signInWithGoogle = async () => {
         try {
@@ -50,9 +56,10 @@ const SignIn = () => {
             
             toast.dismiss()
             toast.success(response.data.message)
-            
+
             if(response.data.signupstep === signupstep.idle) navigate('/')
             else navigate(`/auth/${response.data.signupstep}`)
+
         } catch (error) {
             toast.dismiss()
             if(error?.response?.data?.message) toast.error(error.response.data.message)
@@ -80,11 +87,11 @@ const SignIn = () => {
             sessionStorage.userName = response.data.userName
             sessionStorage.signupstep = response.data.signupstep
             sessionStorage.updatedAt = response.data.updatedAt
+            sessionStorage.description = response.data.description
             
             toast.dismiss()
             toast.success(response.data.message)
-            if(response.data.signupstep === signupstep.idle) navigate('/')
-            else navigate(`/auth/${response.data.signupstep}`)
+            navigate(`/auth/${response.data.signupstep}`)
         } catch (error) {
             toast.dismiss()
             if(error?.response?.data?.message) toast.error(error.response.data.message)
@@ -105,7 +112,8 @@ const SignIn = () => {
             sessionStorage.token = response.data.token
             sessionStorage.userName = response.data.userName
             sessionStorage.signupstep = response.data.signupstep
-            sessionStorage.updatedAt = response.data.updatedAt  
+            sessionStorage.updatedAt = response.data.updatedAt
+            sessionStorage.description = response.data.description
             
             toast.dismiss()
             toast.success(response.data.message)

@@ -1,9 +1,19 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import {SignIn, SignUp, VerifyEmail, CompleteSignUp} from "../components";
 import { AuthLayout } from "../layout";
+import signupstep from "../constant/signupstep";
 
 const Auth = () => {
+
+    const token = sessionStorage.token
+    const authstep = sessionStorage.signupstep
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(token && authstep === signupstep.idle) navigate('/')
+    }, [token, signupstep, navigate])
+
     return (
         <AuthLayout>
             <Routes>

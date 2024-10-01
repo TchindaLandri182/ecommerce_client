@@ -107,6 +107,7 @@ const SignUp = () => {
             sessionStorage.token = response.data.token
             sessionStorage.userName = response.data.userName
             sessionStorage.signupstep = response.data.signupstep
+            console.log(response.data.signupstep)
             
             toast.dismiss()
             toast.success(response.data.message)

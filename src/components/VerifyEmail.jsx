@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -18,29 +18,39 @@ const VerifyEmail = () => {
     const apiUrl = 'http://localhost:4000/api/auth';
     const navigate = useNavigate()
     const {id:token} = useParams()
+    const [send, setSend] = useState(false)
+    // const token2 = sessionStorage.token
+    // const authstep = sessionStorage.signupstep
 
     useEffect(() => {
         const verifyEmailToken = async () => {
-            if(token) {
-                toast.loading("Verifying Email")
-                const response = await axios.post(apiUrl+'/verifyemailtoken', {token})
+            if(token && !send) {
+                setSend(true)
+                try{
+                    toast.loading("Verifying Email")
+                    const response = await axios.post(apiUrl+'/verifyemailtoken', {token})
 
-                sessionStorage.createdAt = response.data.createdAt
-                sessionStorage.email = response.data.email
-                sessionStorage.profileImage = response.data.profileImage
-                sessionStorage.role = response.data.role
-                sessionStorage.token = response.data.token
-                sessionStorage.userName = response.data.userName
-                sessionStorage.signupstep = response.data.signupstep
-                sessionStorage.updatedAt = response.data.updatedAt
-                sessionStorage.description = response.data.description
+                    sessionStorage.createdAt = response.data.createdAt
+                    sessionStorage.email = response.data.email
+                    sessionStorage.profileImage = response.data.profileImage
+                    sessionStorage.role = response.data.role
+                    sessionStorage.token = response.data.token
+                    sessionStorage.userName = response.data.userName
+                    sessionStorage.signupstep = response.data.signupstep
+                    sessionStorage.updatedAt = response.data.updatedAt
+                    sessionStorage.description = response.data.description
 
 
-                toast.dismiss()
-                toast.success(response.data.message)
+                    toast.dismiss()
+                    toast.success(response.data.message)
 
-                if(response.data.signupstep === signupstep.idle) navigate('/')
-                else navigate(`/auth/${response.data.signupstep}`)
+                    if(response.data.signupstep === signupstep.idle) navigate('/')
+                    else navigate(`/auth/${response.data.signupstep}`)
+                }catch(error){
+                    toast.dismiss()
+                    if(error?.response?.data?.message) toast.error(error.response.data.message)
+                    else toast.error(error?.message)
+                }
             } 
         }
         verifyEmailToken()
@@ -61,10 +71,13 @@ const VerifyEmail = () => {
             
             toast.dismiss()
             toast.success(response.data.message)
-            navigate('/')
+            
+            if(response.data.signupstep == signupstep.idle) navigate('/')
+            else navigate(`/auth/${response.data.signupstep}`)
         }catch(error){
             toast.dismiss()
-            toast.error(error.response.data.message)
+            if(error?.response?.data?.message) toast.error(error.response.data.message)
+            else toast.error(error?.message)
         }
         setSubmitting(false)
     }

@@ -15,21 +15,23 @@ function App() {
   // const token = sessionStorage.token
   const authstep = sessionStorage.signupstep
 
+  console.log(localStorage.fontSize)
+
   useEffect(() => {
-    if(authstep !== signupstep.idle && authstep) navigate(`auth/${authstep}`)
+    if(authstep != signupstep.idle && authstep) navigate(`auth/${authstep}`)
   }, [authstep, navigate])
 
   useEffect(() => {
     
     const setGlobalTheme = () => {
       if(!localStorage?.color) localStorage.setItem('color', '#7fec7f')
-      if(localStorage?.fontSize) localStorage.setItem('fontSize', 0.5)
+      if(!localStorage?.fontSize) localStorage.setItem('fontSize', 16)
     }
     setGlobalTheme()
   }, [])
   return (
     
-    <div style={{fontSize: ((2*(Number.parseFloat(localStorage.fontSize) + 0.1))+'rem')}} className="App dark:bg-gray-900 dark:text-white bg-white text-black">
+    <div style={{fontSize: localStorage.fontSize+"px" }} className="App dark:bg-gray-900 dark:text-white bg-white text-black text-[10px] md:text-[20px]">
       <Navbar />
       <Routes>
         <Route path='/' Component={Home} />

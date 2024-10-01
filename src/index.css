@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+a.active{
+    color: rgb(123, 120, 120);
+}

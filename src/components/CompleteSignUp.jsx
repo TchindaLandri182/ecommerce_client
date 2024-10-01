@@ -2,8 +2,9 @@ import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import personImage from "../images/personImage.png"
 import React, { useEffect } from "react";
-import { FaAudioDescription, FaImage, FaLock, FaPen, FaUser } from "react-icons/fa";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { FaImage, FaPen, FaUser } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import signupstep from '../constant/signupstep'
 import { toast } from "react-toastify";
 import * as Yup from 'yup';
 
@@ -21,6 +22,10 @@ const CompleteSignUp = () => {
 
     const navigate = useNavigate()
     const apiUrl = 'http://localhost:4000/api/auth';
+
+    useEffect(() => {
+        if(!sessionStorage?.signupstep || sessionStorage?.signupstep !== signupstep.complete) navigate('/')
+    }, [])
 
     const handleSubmit = async (values, {setSubmitting}) => {
         toast.dismiss()
@@ -76,13 +81,7 @@ const CompleteSignUp = () => {
                     
                     <Form className="w-[250px] flex flex-col gap-5">
     
-                        <div style={{
-                            width:'6rem',
-                            height:'6rem',
-                            overflow: 'hidden',
-                            borderRadius: '50%',
-                            alignSelf: 'center'
-                        }}>
+                        <div className="w-24 h-24 overflow-hidden rouded-full self-center" >
                             <img 
                                 src={values.profileImage ?
                                     URL.createObjectURL(values.profileImage) :
@@ -130,7 +129,7 @@ const CompleteSignUp = () => {
                                     onChange={(e) => 
                                         setFieldValue('profileImage', e.currentTarget.files[0])
                                     }
-                                    className="h-full w-full pl-[55px] pr-[10px] text-black" 
+                                    className="h-full text-white w-full pl-[55px] pr-[10px]" 
                                 />
                             </div>
 
@@ -158,7 +157,7 @@ const CompleteSignUp = () => {
 
                         <button
                             style={{background: localStorage.color}}
-                            className="h-[50px] rounded-lg overflow-hidden"
+                            className="h-[50px] rounded-lg overflow-hidden text-white"
                             type="submit" 
                             disabled={isSubmitting}
                         >
