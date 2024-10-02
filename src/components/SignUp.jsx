@@ -31,7 +31,8 @@ const SignUp = () => {
     const [viewPassword, setViewPassword] = useState(false)
 
     const signUpWithGoogle = async () => {
-    
+        toast.dismiss()
+        toast.loading("signing up with google")
         try {
             
             const result = await signInWithPopup(auth, googleProvider)
@@ -63,7 +64,8 @@ const SignUp = () => {
     };
 
     const signUpWithFacebook = async () => {
-        
+        toast.dismiss()
+        toast.loading("signing up with facebook")
         try {
             
             const result = await signInWithPopup(auth, facebookProvider)

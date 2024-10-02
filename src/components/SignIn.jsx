@@ -31,6 +31,8 @@ const SignIn = () => {
     },[])
 
     const signInWithGoogle = async () => {
+        toast.dismiss()
+        toast.loading("signing up with google")
         try {
             
             const result = await signInWithPopup(auth, googleProvider)
@@ -66,6 +68,8 @@ const SignIn = () => {
     };
 
     const signInWithFacebook = async () => {
+        toast.dismiss()
+        toast.loading("signing in with facebook")
         try {
             
             const result = await signInWithPopup(auth, facebookProvider)
