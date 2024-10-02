@@ -12,7 +12,7 @@ const Auth = () => {
 
     useEffect(() => {
         if(token && authstep === signupstep.idle) navigate('/')
-    }, [token, signupstep, navigate])
+    }, [token, navigate, authstep])
 
     return (
         <AuthLayout>
