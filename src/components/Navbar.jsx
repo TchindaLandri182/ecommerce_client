@@ -17,6 +17,7 @@ const Navbar = () => {
     const [showNav, setShowNav] = useState(false)
     const [showSetting, setShowSetting] = useState(false)
     const isAuth = !!sessionStorage.token
+    const [profileImage, setProfileImage] = useState(sessionStorage.profileImage)
     const handleSignout = () => {
         sessionStorage.clear()
         navigate('/')
@@ -55,9 +56,10 @@ const Navbar = () => {
                     <div className="flex items-center gap-3 ">
                         <span>{sessionStorage.userName}</span>
                         <img 
-                            src={sessionStorage.profileImage ? sessionStorage.profileImage : personImage}
+                            src={sessionStorage.profileImage ? profileImage : personImage}
+                            onError={() => setProfileImage(personImage)}
                             alt="profile"
-                            className="w-[2rem] h-[2rem] rounded-full border-2 border-white"
+                            className="w-[2rem] h-[2rem] rounded-full overflow-hidden    border-2 border-white"
                         />
                         <button 
                             style={{background: localStorage.color}}

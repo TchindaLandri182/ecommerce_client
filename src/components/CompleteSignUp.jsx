@@ -81,7 +81,7 @@ const CompleteSignUp = () => {
                     
                     <Form className="w-[250px] flex flex-col gap-5">
     
-                        <div className="w-24 h-24 overflow-hidden rouded-full self-center" >
+                        <div className="w-24 h-24 overflow-hidden rounded-full border-2 border-white self-center" >
                             <img 
                                 src={values.profileImage ?
                                     URL.createObjectURL(values.profileImage) :
