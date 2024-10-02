@@ -10,7 +10,7 @@ const HeroSection = () => {
                 <Link 
                     to='/auth' 
                     style={{background: localStorage.color}}
-                    className="rounded-full py-2 px-4"
+                    className="rounded-full py-2 px-4 text-white"
                 >
                     Buy Now
                 </Link>
