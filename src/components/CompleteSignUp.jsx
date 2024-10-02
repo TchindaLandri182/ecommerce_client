@@ -21,7 +21,8 @@ const validationSchema = Yup.object().shape({
 const CompleteSignUp = () => {
 
     const navigate = useNavigate()
-    const apiUrl = 'http://localhost:4000/api/auth';
+    // const apiUrl = 'http://localhost:4000/api/auth';
+    const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/auth';
 
     useEffect(() => {
         if(!sessionStorage?.signupstep || sessionStorage?.signupstep !== signupstep.complete) navigate('/')
