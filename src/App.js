@@ -18,7 +18,7 @@ function App() {
   console.log(localStorage.fontSize)
 
   useEffect(() => {
-    if(authstep != signupstep.idle && authstep) navigate(`auth/${authstep}`)
+    if(authstep !== signupstep.idle && authstep) navigate(`auth/${authstep}`)
   }, [authstep, navigate])
 
   useEffect(() => {

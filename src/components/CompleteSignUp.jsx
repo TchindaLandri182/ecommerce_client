@@ -26,7 +26,7 @@ const CompleteSignUp = () => {
 
     useEffect(() => {
         if(!sessionStorage?.signupstep || sessionStorage?.signupstep !== signupstep.complete) navigate('/')
-    }, [])
+    }, [navigate])
 
     const handleSubmit = async (values, {setSubmitting}) => {
         toast.dismiss()

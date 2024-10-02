@@ -56,7 +56,7 @@ const VerifyEmail = () => {
         }
         verifyEmailToken()
         
-    }, [token])
+    }, [token, navigate, send])
 
     const handleSubmit = async (values, {setSubmitting}) => {
         toast.dismiss()
@@ -73,7 +73,7 @@ const VerifyEmail = () => {
             toast.dismiss()
             toast.success(response.data.message)
             
-            if(response.data.signupstep == signupstep.idle) navigate('/')
+            if(response.data.signupstep === signupstep.idle) navigate('/')
             else navigate(`/auth/${response.data.signupstep}`)
         }catch(error){
             toast.dismiss()
