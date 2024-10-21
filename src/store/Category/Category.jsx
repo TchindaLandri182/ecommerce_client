@@ -2,7 +2,7 @@
 // import axios from 'axios';
 // import { toast } from 'react-toastify';
 
-// const apiUrl = 'http://localhost:4000/api/category';
+// const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/category';
 
 // export const getCategory = createAsyncThunk('category/get', async ({search}) => {
 //     try{
@@ -69,7 +69,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const categoryApiSlice = createApi({
   reducerPath: 'category',
-  baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:4000'}),
+  baseQuery: fetchBaseQuery({baseUrl: 'https://ecommerce-server-ht4t.onrender.com'}),
   endpoints: (builder) => ({
     fetchCategory: builder.query({
       query: (param) => ({

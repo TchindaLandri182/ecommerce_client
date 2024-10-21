@@ -3,7 +3,7 @@
 // import { toast } from 'react-toastify';
 
 
-// const apiUrl = 'http://localhost:4000/api/product';
+// const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/product';
 
 // export const getProducts = createAsyncThunk('product/get', async ({search, sortBy, order, category, page, limit}) => {
 //   try{
@@ -99,7 +99,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const productApiSlice = createApi({
   reducerPath: 'product',
-  baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:4000'}),
+  baseQuery: fetchBaseQuery({baseUrl: 'https://ecommerce-server-ht4t.onrender.com'}),
   endpoints: (builder) => ({
     fetchProducts: builder.query({
       query: (param) => ({

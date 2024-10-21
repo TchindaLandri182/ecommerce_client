@@ -27,7 +27,7 @@ const validationSchema = Yup.object().shape({
 
 
 const UpdateCreateProduct = ( {show, setShow, option='update'} ) => {
-    // const apiUrl = 'http://localhost:4000'
+    // const apiUrl = 'https://ecommerce-server-ht4t.onrender.com'
     const [createProduct] = useCreateProductMutation()
     const [categories, setCategories] = useState([]);
     const [display, setDisplay] = useState(false)
