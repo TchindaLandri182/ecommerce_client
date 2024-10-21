@@ -16,8 +16,9 @@ const Footer = () => {
                     <ul className="ml-4">
                         <li><NavLink className='text-white' to='/'>Home</NavLink></li>
                         <li><NavLink className='text-white' to='/product'>Products</NavLink></li>
-                        <li><NavLink className='text-white' to='/'></NavLink></li>
-                        <li><NavLink className='text-white' to='/'></NavLink></li>
+                        <li><NavLink className='text-white' to='/cart'>Cart</NavLink></li>
+                        <li><NavLink className='text-white' to='/auth/signin'>Sign In</NavLink></li>
+                        <li><NavLink className='text-white' to='/auth/signup'>Sign Up</NavLink></li>
                     </ul>
                 </div>
                 <div className="item">

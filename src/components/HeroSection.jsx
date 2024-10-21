@@ -8,7 +8,7 @@ const HeroSection = () => {
             <div className="w-full md:w-1/2 md:h-full flex flex-col md:items-start items-center p-10 gap-16 justify-center">
                 <div><p className="text-center md:text-start text-4xl lg:text-5xl  xl:text-7xl font-bold ">Grab Upto <span style={{color: localStorage.color}} className="text-10xl">50% Off</span>  On Selected Products</p></div>
                 <Link 
-                    to='/auth' 
+                    to={sessionStorage.token ? '/product' : '/auth/signin'} 
                     style={{background: localStorage.color}}
                     className="rounded-full py-2 px-4 text-white"
                 >

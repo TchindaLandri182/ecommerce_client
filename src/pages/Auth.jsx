@@ -22,6 +22,7 @@ const Auth = () => {
                 <Route path="/verify/:id" Component={VerifyEmail} />
                 <Route path="/verify" Component={VerifyEmail} />
                 <Route path="/complete" Component={CompleteSignUp} />
+                <Route path="/*" Component={SignIn} />
             </Routes>
         </AuthLayout>
     )

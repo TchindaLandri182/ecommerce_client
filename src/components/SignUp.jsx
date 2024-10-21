@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
 
 const SignUp = () => {
 
-    const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/auth';
+    const apiUrl = 'http://localhost:4000/api/auth';
     const navigate = useNavigate()
     const [viewPassword, setViewPassword] = useState(false)
 
@@ -129,7 +129,7 @@ const SignUp = () => {
                 <p className="text-[12px] text-center text-gray-500">Welcome to Ecommerce, please enter your details</p>
             </div>
             <div className="dark:bg-gray-700 bg-gray-300 w-[250px] p-1 rounded-full flex items-center">
-                <Link to="/auth/signin"  className="w-1/2 flex items-center justify-center rounded-full  py-2 px-4">
+                <Link to="/auth/signin"  className="w-1/2 flex items-center justify-center rounded-full  py-2 px-4 text-white">
                     Sign In
                 </Link>
                 <Link to="/auth/signup" style={{background: localStorage.color}} className="w-1/2 flex items-center justify-center rounded-full py-2 px-4 text-white">
@@ -197,7 +197,7 @@ const SignUp = () => {
                         
                         <button
                             style={{background: localStorage.color}}
-                            className="h-[50px] rounded-lg overflow-hidden"
+                            className="h-[50px] rounded-lg overflow-hidden text-white"
                             type="submit" 
                             disabled={isSubmitting}
                         >

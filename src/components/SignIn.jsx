@@ -22,7 +22,7 @@ const SignIn = () => {
 
     
 
-    const apiUrl = 'https://ecommerce-server-ht4t.onrender.com/api/auth';
+    const apiUrl = 'http://localhost:4000/api/auth';
     // const apiUrl = 'http://localhost:4000/api/auth'
 
     const navigate = useNavigate()
@@ -142,10 +142,11 @@ const SignIn = () => {
                 <Link to="/auth/signin" style={{background: localStorage.color}} className="w-1/2 flex items-center justify-center rounded-full text-white py-2 px-4">
                     Sign In
                 </Link>
-                <Link to="/auth/signup" className="w-1/2 flex items-center justify-center rounded-full py-2 px-4">
+                <Link to="/auth/signup" className="w-1/2 flex items-center justify-center rounded-full py-2 px-4 text-white">
                     Sign Up
                 </Link>
             </div>
+                <form ></form>
              <Formik
                 initialValues={{ email: '', password: '' }}
                 validationSchema={validationSchema}
@@ -190,7 +191,7 @@ const SignIn = () => {
                         
                         <button
                             style={{background: localStorage.color}}
-                            className="h-[50px] rounded-lg overflow-hidden"
+                            className="h-[50px] rounded-lg overflow-hidden text-white"
                             type="submit" 
                             disabled={isSubmitting}
                         >

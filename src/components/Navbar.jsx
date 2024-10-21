@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaBars,
         FaEnvelope, 
+        FaPlus, 
         FaShoppingBag, 
         FaShoppingCart, 
         FaTag, 
@@ -10,21 +11,32 @@ import personImage from '../images/personImage.png'
 import { MdSettings } from 'react-icons/md';
 import { Link, useNavigate } from "react-router-dom";
 import Setting from "./Setting";
+import UpdateCreateProduct from "./UpdateCreateProduct";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
     
     const navigate = useNavigate()
     const [showNav, setShowNav] = useState(false)
     const [showSetting, setShowSetting] = useState(false)
+    const [showNewProduct, setShowNewProduct] = useState(false)
+    const itemNum = useSelector((state) => {
+        let sum = 0
+        state.items.forEach((item) => sum += item?.quantity)
+        return sum
+    })
     const isAuth = !!sessionStorage.token
-    const [profileImage, setProfileImage] = useState(sessionStorage.profileImage)
+    const [profileImage/*, setProfileImage*/] = useState(sessionStorage.profileImage)
+    
     const handleSignout = () => {
         sessionStorage.clear()
         navigate('/')
     }
+    
+    
 
     return (
-        <nav className="flex h-[6rem] px-6 justify-between items-center dark:bg-gray-900 bg-gray-100 mb-10 flex-wrap">
+        <nav className="flex h-[6rem] px-6 justify-between items-center dark:bg-gray-900 bg-gray-100 mb-10 flex-wrap border-b-2 border-white">
             <Link className="hidden md:flex" to='/'>
                 <span className="text-lg md:text-2xl flex gap-3 items-center">
                     <FaShoppingBag color={localStorage.color} /> Ecommerce
@@ -48,16 +60,23 @@ const Navbar = () => {
                 <div onClick={() => setShowSetting(true)}>
                     <MdSettings color={localStorage.color} />
                 </div>
-                <div className="relative">
-                    <FaShoppingCart color={localStorage.color} />
-                    <div className="text-sm absolute -top-4 -right-4 h-[20px] w-[20px] bg-red-500 p-2 rounded-full flex items-center justify-center text-white">10</div>
-                </div>
+                <Link to='/cart'>
+                    <div className="relative">
+                        <FaShoppingCart color={localStorage.color} />
+                        {itemNum > 0 && 
+                            <div className="text-sm absolute -top-4 -right-4 h-[20px] w-[20px] bg-red-500 p-2 rounded-full flex items-center justify-center text-white">{itemNum}</div>
+                        }
+                    </div>
+                </Link>
                 {isAuth ? (
                     <div className="flex items-center gap-3 ">
+                        <div onClick={() => setShowNewProduct(true)}>
+                            <FaPlus color={localStorage.color} />
+                        </div>
                         <span>{sessionStorage.userName}</span>
                         <img 
                             src={sessionStorage.profileImage ? profileImage : personImage}
-                            onError={() => setProfileImage(personImage)}
+                            //onError={() => setProfileImage(personImage)}
                             alt="profile"
                             className="w-[2rem] h-[2rem] rounded-full overflow-hidden    border-2 border-white"
                         />
@@ -84,7 +103,7 @@ const Navbar = () => {
                 
                 {showNav && (
                     <div className="md:hidden fixed top-0 left-0 w-screen h-screen backdrop-blur-sm bg-black bg-opacity-50 flex justify-center items-center text-white z-50">
-                        <Link className="absolute top-6 left-6" to='/'>
+                        <Link className="absolute top-6 left-6" to='/' onClick={() => setShowNav(false)}>
                             <span className="text-lg md:text-2xl flex gap-3 items-center">
                                 <FaShoppingBag color={localStorage.color} /> Ecommerce
                             </span>
@@ -107,6 +126,7 @@ const Navbar = () => {
                 )}
                 
                 <Setting show={showSetting} setShow={setShowSetting} />
+                {showNewProduct && <UpdateCreateProduct show={showNewProduct} setShow={setShowNewProduct} option={'create'} />}
             </div>
         </nav>
     )
